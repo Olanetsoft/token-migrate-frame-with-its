@@ -10,7 +10,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: "post",
-          label: "Register as Interchain Token",
+          label: "Submit",
           target: "http://localhost:3000/api/middleware/select-chain",
         },
       ],

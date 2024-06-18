@@ -1,3 +1,4 @@
+import { Input } from "./../../../../node_modules/@ethereumjs/rlp/src/index";
 import { getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -24,7 +25,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
       ],
       image: "http://localhost:3000/images/result.png",
-      postUrl: "http://localhost:3000/api/middleware/select-chain",
+      postUrl: "http://localhost:3000/api/middleware/verifier",
+      state: {
+        tokenAddress: body.untrustedData.inputText,
+      },
     })
   );
 }
