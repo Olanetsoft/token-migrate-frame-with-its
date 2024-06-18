@@ -41,6 +41,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const { tokenAddress, chainName } = parsedState;
 
     console.log("token address: ", tokenAddress);
+    console.log("Chain name", chainName);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
