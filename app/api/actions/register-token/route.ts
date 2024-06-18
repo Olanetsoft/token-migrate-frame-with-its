@@ -65,6 +65,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     };
 
     const chainId = chainMap[chainName];
+    console.log("ChainID section");
+
+    console.log(chainId);
     if (!chainId) {
       return NextResponse.json(
         { error: "Invalid chain selected" },
