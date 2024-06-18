@@ -27,7 +27,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     console.log("Done decoding");
-    let parsedState: { tokenAddress: string; chainName: string };
+    let parsedState: { tokenAddress: string; chain: string };
     try {
       parsedState = JSON.parse(decodedState);
       console.log(parsedState);
@@ -40,10 +40,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     console.log("Done parsed");
-    const { tokenAddress, chainName } = parsedState;
+    const { tokenAddress, chain } = parsedState;
 
     console.log("token address: ", tokenAddress);
-    console.log("Chain name", chainName);
+    console.log("Chain name", chain);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
@@ -67,7 +67,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       "ethereum-sepolia": sepolia.id,
     };
 
-    const chainId = chainMap[chainName];
+    const chainId = chainMap[chain];
     console.log("ChainID section");
 
     console.log(chainId);
