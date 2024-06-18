@@ -25,6 +25,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
+    console.log("Done decoding");
     let parsedState: { tokenAddress: string; chainName: string };
     try {
       parsedState = JSON.parse(decodedState);
@@ -36,7 +37,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
+    console.log("Done parsed");
     const { tokenAddress, chainName } = parsedState;
+
+    console.log("token address: ", tokenAddress);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
@@ -46,12 +50,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
+    console.log("encode function data");
     const data = encodeFunctionData({
       abi: InterchainTokenFactoryABI,
       functionName: "registerCanonicalInterchainToken",
       args: [tokenAddress as `0x${string}`],
     });
 
+    console.log("chain map");
     const chainMap: { [key: string]: number } = {
       "base-sepolia": baseSepolia.id,
       "optimism-sepolia": optimismSepolia.id,
@@ -65,7 +71,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         { status: 400 }
       );
     }
-
+    console.log("TXN start");
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${chainId}`,
       method: "eth_sendTransaction",
@@ -76,7 +82,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         value: "0x0",
       },
     };
-
+    console.log("return result");
     return NextResponse.json(txData);
   } catch (error) {
     console.error("Error in getResponse:", error);
