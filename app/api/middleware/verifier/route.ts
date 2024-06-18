@@ -52,7 +52,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
     const { tokenAddress } = parsedState;
 
-    return NextResponse.json(
+    return new NextResponse(
       getFrameHtmlResponse({
         buttons: [
           {
