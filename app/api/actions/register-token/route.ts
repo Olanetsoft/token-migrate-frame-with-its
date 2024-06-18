@@ -17,6 +17,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     let decodedState: string;
     try {
       decodedState = decodeURIComponent(body.untrustedData.state);
+      console.log(decodedState);
     } catch (error) {
       console.error("Error decoding state:", error);
       return NextResponse.json(
@@ -29,6 +30,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     let parsedState: { tokenAddress: string; chainName: string };
     try {
       parsedState = JSON.parse(decodedState);
+      console.log(parsedState);
     } catch (error) {
       console.error("Error parsing serialized state:", error);
       return NextResponse.json(
