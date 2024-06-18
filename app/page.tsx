@@ -6,8 +6,8 @@ const appInfo = {
   name: "Migrate Token with Interchain Token Service on Farcaster Frames",
   description:
     "Build a Farcaster frame to Migrate Token with Interchain Token Service",
-  image: "http://localhost:3000/images/result.png",
-  postUrl: "http://localhost:3000/api/home",
+  image: "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+  postUrl: "https://token-migrate-frame-with-its.vercel.app/api/home",
 };
 
 const frameMetadata = getFrameMetadata({

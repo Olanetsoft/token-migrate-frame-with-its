@@ -58,12 +58,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           {
             action: "tx",
             label: "Register",
-            target: "http://localhost:3000/actions/register-token",
-            postUrl: "http://localhost:3000/api/actions/register-token-success",
+            target:
+              "https://token-migrate-frame-with-its.vercel.app/actions/register-token",
+            postUrl:
+              "https://token-migrate-frame-with-its.vercel.app/api/actions/register-token-success",
           },
         ],
-        image: "http://localhost:3000/images/result.png",
-        postUrl: "http://localhost:3000/actions/register-token",
+        image:
+          "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+        postUrl:
+          "https://token-migrate-frame-with-its.vercel.app/actions/register-token",
         state: {
           chain: chainName,
           tokenAddress: tokenAddress,

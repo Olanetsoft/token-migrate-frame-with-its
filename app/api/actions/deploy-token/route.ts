@@ -16,7 +16,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
       ],
       image: {
-        src: `http://localhost:3000/result-frame.png`,
+        src: `https://token-migrate-frame-with-its.vercel.app/result-frame.png`,
       },
     })
   );

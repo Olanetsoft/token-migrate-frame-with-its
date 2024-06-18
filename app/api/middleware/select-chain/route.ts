@@ -24,8 +24,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           label: "Base",
         },
       ],
-      image: "http://localhost:3000/images/result.png",
-      postUrl: "http://localhost:3000/api/middleware/verifier",
+      image:
+        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+      postUrl:
+        "https://token-migrate-frame-with-its.vercel.app/api/middleware/verifier",
       state: {
         tokenAddress: body.untrustedData.inputText,
       },

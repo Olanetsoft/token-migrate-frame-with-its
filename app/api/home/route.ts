@@ -11,11 +11,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           action: "post",
           label: "Submit",
-          target: "http://localhost:3000/api/middleware/select-chain",
+          target:
+            "https://token-migrate-frame-with-its.vercel.app/api/middleware/select-chain",
         },
       ],
-      image: "http://localhost:3000/images/result.png",
-      postUrl: "http://localhost:3000/api/middleware/select-chain",
+      image:
+        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+      postUrl:
+        "https://token-migrate-frame-with-its.vercel.app/api/middleware/select-chain",
     })
   );
 }

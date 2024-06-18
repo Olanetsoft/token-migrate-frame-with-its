@@ -26,11 +26,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           label: "Bridge Token",
           action: "post",
-          target: `http://localhost:3000/api/actions/deploy-token`,
+          target: `https://token-migrate-frame-with-its.vercel.app/api/actions/deploy-token`,
         },
       ],
       image: {
-        src: `http://localhost:3000/result-frame.png`,
+        src: `https://token-migrate-frame-with-its.vercel.app/result-frame.png`,
       },
     })
   );
