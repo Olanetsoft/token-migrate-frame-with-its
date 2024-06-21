@@ -1,19 +1,9 @@
-import {
-  FrameRequest,
-  getFrameMessage,
-  getFrameHtmlResponse,
-} from "@coinbase/onchainkit/frame";
+import { FrameRequest, getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Inside Register Success");
-  // console.log(body);
-  // const { isValid } = await getFrameMessage(body);
-
-  // if (!isValid) {
-  //   return new NextResponse("Message not valid", { status: 500 });
-  // }
+  console.log("Register Success Frame");
 
   return new NextResponse(
     getFrameHtmlResponse({
@@ -30,9 +20,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             "https://token-migrate-frame-with-its.vercel.app/api/actions/deploy-token",
         },
       ],
-      image: {
-        src: "https://token-migrate-frame-with-its.vercel.app/result-frame.png",
-      },
+      image: "https://token-migrate-frame-with-its.vercel.app/result-frame.png",
     })
   );
 }
