@@ -9,11 +9,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   console.log("Inside Register Success");
   console.log(body);
-  const { isValid } = await getFrameMessage(body);
+  // const { isValid } = await getFrameMessage(body);
 
-  if (!isValid) {
-    return new NextResponse("Message not valid", { status: 500 });
-  }
+  // if (!isValid) {
+  //   return new NextResponse("Message not valid", { status: 500 });
+  // }
 
   return new NextResponse(
     getFrameHtmlResponse({
@@ -26,11 +26,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           label: "Bridge Token",
           action: "post",
-          target: `https://token-migrate-frame-with-its.vercel.app/api/actions/deploy-token`,
+          target:
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/deploy-token",
         },
       ],
       image: {
-        src: `https://token-migrate-frame-with-its.vercel.app/result-frame.png`,
+        src: "https://token-migrate-frame-with-its.vercel.app/result-frame.png",
       },
     })
   );
