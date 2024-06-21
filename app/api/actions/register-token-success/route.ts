@@ -20,7 +20,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             "https://token-migrate-frame-with-its.vercel.app/api/actions/deploy-token",
         },
       ],
-      image: "https://token-migrate-frame-with-its.vercel.app/result-frame.png",
+      image:
+        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
     })
   );
 }
