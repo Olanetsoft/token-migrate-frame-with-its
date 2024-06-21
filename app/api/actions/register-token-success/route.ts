@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   console.log("Inside Register Success");
-  console.log(body);
+  // console.log(body);
   // const { isValid } = await getFrameMessage(body);
 
   // if (!isValid) {
