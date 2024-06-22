@@ -1,11 +1,14 @@
-import { FrameRequest, getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
+import {
+  FrameRequest,
+  getFrameMessage,
+  getFrameHtmlResponse,
+} from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Register Success Frame");
+  console.log("Start deployment Frame");
 
-  // Decode the URL-encoded serialized state
   let decodedState: string;
   try {
     decodedState = decodeURIComponent(body.untrustedData.state);
@@ -30,25 +33,19 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   const { tokenAddress } = parsedState;
-
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
         {
-          label: "View transaction",
-          action: "link",
-          // target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
-          target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
-        },
-        {
-          label: "Deploy on a Remote Chain",
           action: "post",
+          label: "Start Remote Deployment",
           target:
-            "https://token-migrate-frame-with-its.vercel.app/api/actions/start-deployment",
+            "https://token-migrate-frame-with-its.vercel.app/api/middleware/deploy-select-chain",
         },
       ],
-      image:
-        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+      image: `https://token-migrate-frame-with-its.vercel.app/images/result.png`,
+      postUrl:
+        "https://token-migrate-frame-with-its.vercel.app/api/middleware/deploy-select-chain",
       state: {
         tokenAddress: tokenAddress,
       },

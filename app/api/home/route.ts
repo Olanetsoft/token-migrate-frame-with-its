@@ -12,13 +12,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           action: "post",
           label: "Submit",
           target:
-            "https://token-migrate-frame-with-its.vercel.app/api/middleware/select-chain",
+            "https://token-migrate-frame-with-its.vercel.app/api/middleware/register-select-chain",
         },
       ],
       image:
         "https://token-migrate-frame-with-its.vercel.app/images/result.png",
       postUrl:
-        "https://token-migrate-frame-with-its.vercel.app/api/middleware/select-chain",
+        "https://token-migrate-frame-with-its.vercel.app/api/middleware/register-select-chain",
     })
   );
 }

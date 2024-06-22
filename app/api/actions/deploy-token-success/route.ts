@@ -1,23 +1,28 @@
-import {
-  FrameRequest,
-  getFrameMessage,
-  getFrameHtmlResponse,
-} from "@coinbase/onchainkit/frame";
+import { FrameRequest, getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
+  const body: FrameRequest = await req.json();
+  console.log("Register Success Frame");
+
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
         {
           label: "View transaction",
           action: "link",
-          target: "",
+          target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
+          // target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
+        },
+        {
+          label: "Bridge Token",
+          action: "post",
+          target:
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/start-deployment",
         },
       ],
-      image: {
-        src: `https://token-migrate-frame-with-its.vercel.app/result-frame.png`,
-      },
+      image:
+        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
     })
   );
 }

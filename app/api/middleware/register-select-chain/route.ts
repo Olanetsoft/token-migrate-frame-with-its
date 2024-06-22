@@ -1,4 +1,4 @@
-import { Input } from "./../../../../node_modules/@ethereumjs/rlp/src/index";
+import { Input } from "@ethereumjs/rlp/src";
 import { getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,7 +27,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       image:
         "https://token-migrate-frame-with-its.vercel.app/images/result.png",
       postUrl:
-        "https://token-migrate-frame-with-its.vercel.app/api/middleware/verifier",
+        "https://token-migrate-frame-with-its.vercel.app/api/middleware/register-verifier",
       state: {
         tokenAddress: body.untrustedData.inputText,
       },
