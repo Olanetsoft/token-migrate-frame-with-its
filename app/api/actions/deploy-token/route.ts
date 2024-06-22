@@ -83,6 +83,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
     console.log("TXN start");
+
+    console.log(data);
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${chainId}`,
       method: "eth_sendTransaction",
@@ -94,6 +96,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       },
     };
     console.log("return result");
+
     return NextResponse.json(txData);
   } catch (error) {
     console.error("Error in getResponse:", error);
