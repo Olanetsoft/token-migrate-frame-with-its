@@ -65,28 +65,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       ],
     });
 
-    console.log("chain map");
-    const chainMap: { [key: string]: number } = {
-      "base-sepolia": baseSepolia.id,
-      "optimism-sepolia": optimismSepolia.id,
-      "ethereum-sepolia": sepolia.id,
-    };
-
-    const chainId = chainMap[chain];
-    console.log("ChainID section");
-
-    console.log(chainId);
-    if (!chainId) {
-      return NextResponse.json(
-        { error: "Invalid chain selected" },
-        { status: 400 }
-      );
-    }
     console.log("TXN start");
 
     console.log(data);
     const txData: FrameTransactionResponse = {
-      chainId: `eip155:${chainId}`,
+      chainId: `eip155:${baseSepolia.id}`,
       method: "eth_sendTransaction",
       params: {
         abi: [],
