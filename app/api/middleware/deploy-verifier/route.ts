@@ -38,6 +38,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       );
     }
 
+    console.log(decodedState);
+
     // Parse the decoded state
     let parsedState: { tokenAddress: string };
     try {
