@@ -61,7 +61,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         "base-sepolia",
         tokenAddress as `0x${string}`,
         chain,
-        parseEther("0.00006"),
+        parseEther("0.0006"),
       ],
     });
 
@@ -75,7 +75,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: INTERCHAIN_TOKEN_FACTORY_ADDRESS,
-        value: parseEther("0.00006").toString(),
+        value: parseEther("0.0006").toString(),
       },
     };
     console.log("return result");
