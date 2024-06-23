@@ -79,7 +79,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       params: {
         abi: [],
         data,
-        to: INTERCHAIN_TOKEN_SERVICE_ADDRESS,
+        to: tokenAddress as `0x${string}`,
         value: parseEther("0.0006").toString(),
       },
     };

@@ -3,7 +3,46 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Transfer token Success Frame");
+  console.log("Approve token Success Frame");
+
+  let decodedState: string;
+  try {
+    decodedState = decodeURIComponent(body.untrustedData.state);
+  } catch (error) {
+    console.error("Error decoding state:", error);
+    return NextResponse.json(
+      { error: "Invalid state format" },
+      { status: 400 }
+    );
+  }
+
+  // Parse the decoded state
+  let parsedState: { tokenAddress: string; tokenId: string; amount: string };
+  try {
+    parsedState = JSON.parse(decodedState);
+  } catch (error) {
+    console.error("Error parsing serialized state:", error);
+    return NextResponse.json(
+      { error: "Invalid serialized state" },
+      { status: 400 }
+    );
+  }
+
+  const { tokenAddress, tokenId, amount } = parsedState;
+
+  if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
+    console.error("Invalid token address format:", tokenAddress);
+    return NextResponse.json(
+      { error: "Invalid token address format" },
+      { status: 400 }
+    );
+  }
+
+  console.log("tokenAddress", tokenAddress);
+  console.log("tokenId", tokenId);
+  console.log("Amount", amount);
+
+  console.log("Start Approve Frame");
 
   return new NextResponse(
     getFrameHtmlResponse({
@@ -13,9 +52,22 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           action: "link",
           target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
         },
+        {
+          label: "Transfer",
+          action: "post",
+          target:
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token",
+        },
       ],
       image:
         "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+      postUrl:
+        "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token",
+      state: {
+        tokenAddress: tokenAddress,
+        tokenId: tokenId,
+        amount: amount,
+      },
     })
   );
 }
