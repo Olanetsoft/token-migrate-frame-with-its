@@ -72,7 +72,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         receiverAddress,
         parseEther(amount),
         "0x0",
-        parseEther("0"),
+        parseEther("0.00006"),
       ],
     });
 
