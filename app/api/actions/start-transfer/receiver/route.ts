@@ -50,17 +50,17 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: "tx",
-          label: "Send",
+          label: "Approve",
           target:
-            "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token",
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/approve-token",
           postUrl:
-            "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token-success",
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/approve-token-success",
         },
       ],
       image:
         "https://token-migrate-frame-with-its.vercel.app/images/result.png",
       postUrl:
-        "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token",
+        "https://token-migrate-frame-with-its.vercel.app/api/actions/approve-token",
       state: {
         tokenAddress: tokenAddress,
         tokenId: tokenId,
