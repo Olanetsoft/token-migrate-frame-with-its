@@ -1,0 +1,108 @@
+import { NextRequest, NextResponse } from "next/server";
+import { encodeFunctionData, parseEther } from "viem";
+import { baseSepolia, optimismSepolia, sepolia } from "viem/chains";
+import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
+import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
+
+const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
+  "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
+
+async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
+  try {
+    console.log("Transfer Token Action");
+
+    const body = await req.json();
+    console.log(body);
+
+    const receiverAddress = body.untrustedData.inputText;
+
+    console.log(receiverAddress);
+
+    let decodedState: string;
+    try {
+      decodedState = decodeURIComponent(body.untrustedData.state);
+      console.log(decodedState);
+    } catch (error) {
+      console.error("Error decoding state:", error);
+      return NextResponse.json(
+        { error: "Invalid state format" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Done decoding");
+    let parsedState: {
+      tokenAddress: string;
+      tokenId: string;
+      amount: string;
+    };
+    try {
+      parsedState = JSON.parse(decodedState);
+      console.log(parsedState);
+    } catch (error) {
+      console.error("Error parsing serialized state:", error);
+      return NextResponse.json(
+        { error: "Invalid serialized state" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Done parsed");
+    const { tokenAddress, tokenId, amount } = parsedState;
+
+    console.log("token address: ", tokenAddress);
+    console.log("Token Id", tokenId);
+    console.log("Amount", amount);
+
+    if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
+      console.error("Invalid token address format:", tokenAddress);
+      return NextResponse.json(
+        { error: "Invalid token address format" },
+        { status: 400 }
+      );
+    }
+
+    console.log("encode function data");
+    const data = encodeFunctionData({
+      abi: InterchainTokenServiceABI,
+      functionName: "interchainTransfer",
+      args: [
+        tokenId as `0x${string}`,
+        "optimism-sepolia",
+        receiverAddress,
+        parseEther(amount),
+        "0x0",
+        parseEther("0"),
+      ],
+    });
+
+    console.log("TXN start");
+
+    console.log(data);
+    const txData: FrameTransactionResponse = {
+      chainId: `eip155:${baseSepolia.id}`,
+      method: "eth_sendTransaction",
+      params: {
+        abi: [],
+        data,
+        to: INTERCHAIN_TOKEN_SERVICE_ADDRESS,
+        value: parseEther("0.00006").toString(),
+      },
+    };
+    console.log("return result");
+
+    return NextResponse.json(txData);
+  } catch (error) {
+    console.error("Error in getResponse:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(req: NextRequest): Promise<Response> {
+  return getResponse(req);
+}
+
+export const dynamic = "force-dynamic";
