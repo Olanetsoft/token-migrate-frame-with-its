@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData, parseEther, parseUnits } from "viem";
+import { encodeFunctionData, parseUnits } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
@@ -15,7 +15,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log(body);
 
     const receiverAddress = body.untrustedData.inputText;
-
     console.log(receiverAddress);
 
     let decodedState: string;
@@ -50,7 +49,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log("Done parsed");
     const { tokenAddress, tokenId, amount } = parsedState;
 
-    console.log("token address: ", tokenAddress);
+    console.log("Token address: ", tokenAddress);
     console.log("Token Id", tokenId);
     console.log("Amount", amount);
     console.log("ITS", INTERCHAIN_TOKEN_SERVICE_ADDRESS);
@@ -63,17 +62,19 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
-    console.log("encode function data");
+    // Convert amount to bigint using parseUnits
+    const amountInUnits = parseUnits(amount, 18);
+    console.log("Amount in Units (BigInt)", amountInUnits);
+
+    console.log("Encode function data");
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseUnits(amount, 18)],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInUnits],
     });
 
     console.log("TXN start");
-
     console.log(data);
-
     console.log("baseSepolia", baseSepolia);
 
     const txData: FrameTransactionResponse = {
@@ -86,7 +87,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         value: "0x0",
       },
     };
-    console.log("return result");
+    console.log("Return result");
 
     return NextResponse.json(txData);
   } catch (error) {
