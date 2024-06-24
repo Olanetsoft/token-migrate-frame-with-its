@@ -6,7 +6,7 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 import { createPublicClient, getContract, http } from "viem";
 import InterchainTokenFactoryABI from "../../../contracts/InterchainTokenFactoryABI";
-import { baseSepolia, fantomTestnet } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 
 const INTERCHAIN_TOKEN_FACTORY_ADDRESS =
   "0x83a93500d23Fbc3e82B410aD07A6a9F7A0670D66";
@@ -51,17 +51,17 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   console.log(tokenAddress);
 
   const publicClient = createPublicClient({
-    chain: fantomTestnet,
+    chain: baseSepolia,
     transport: http(),
   });
 
-  const fantomTestnetContract = getContract({
+  const baseSepoliaContract = getContract({
     address: INTERCHAIN_TOKEN_FACTORY_ADDRESS,
     abi: InterchainTokenFactoryABI,
     client: publicClient,
   });
 
-  const tokenId = await fantomTestnetContract.read.canonicalInterchainTokenId([
+  const tokenId = await baseSepoliaContract.read.canonicalInterchainTokenId([
     tokenAddress as `0x${string}`,
   ]);
 

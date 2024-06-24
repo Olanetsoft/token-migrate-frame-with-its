@@ -14,7 +14,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         chainName = "ethereum-sepolia";
         break;
       case 2:
-        chainName = "Fantom";
+        chainName = "optimism-sepolia";
         break;
       case 3:
         chainName = "base-sepolia";
