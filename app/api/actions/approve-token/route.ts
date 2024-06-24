@@ -67,7 +67,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       abi: Erc20ABI,
       functionName: "approve",
       args: [
-        INTERCHAIN_TOKEN_SERVICE_ADDRESS as `0x${string}`,
+        INTERCHAIN_TOKEN_SERVICE_ADDRESS,
         parseUnits(amount, 18),
       ],
     });
