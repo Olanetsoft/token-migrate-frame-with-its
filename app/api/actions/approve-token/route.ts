@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData, parseUnits, parseEther } from "viem";
+import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
   "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
+
+// Function to convert bigint to 64-character hex string
+function bigintToHex64(value: bigint): string {
+  return "0x" + value.toString(16).padStart(64, "0");
+}
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   try {
@@ -73,6 +78,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log(data);
     console.log("baseSepolia", baseSepolia);
 
+    // Convert value to 64-character hex string (0x0 padded to 64 hex digits)
+    const valueHex = "0x" + "0".repeat(64);
+    console.log("Value Hex", valueHex);
+
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${baseSepolia.id}`,
       method: "eth_sendTransaction",
@@ -80,7 +89,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value: "0x0",
+        value: valueHex,
       },
     };
     console.log("Return result");
