@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
-// import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
@@ -54,6 +53,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log("token address: ", tokenAddress);
     console.log("Token Id", tokenId);
     console.log("Amount", amount);
+    console.log("ITS", INTERCHAIN_TOKEN_SERVICE_ADDRESS);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
@@ -67,7 +67,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther(amount)],
+      args: [
+        INTERCHAIN_TOKEN_SERVICE_ADDRESS as `0x${string}`,
+        parseEther(amount),
+      ],
     });
 
     console.log("TXN start");
