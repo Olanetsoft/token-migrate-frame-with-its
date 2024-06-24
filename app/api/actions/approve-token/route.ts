@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData, parseEther } from "viem";
+import { encodeFunctionData, parseEther, parseUnits } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
@@ -67,7 +67,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther(amount)],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseUnits(amount, 18)],
     });
 
     console.log("TXN start");
@@ -76,7 +76,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
     console.log("baseSepolia", baseSepolia);
 
-    
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${baseSepolia.id}`,
       method: "eth_sendTransaction",
