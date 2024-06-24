@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData } from "viem";
-import { baseSepolia, optimismSepolia, sepolia } from "viem/chains";
+import {
+  baseSepolia,
+  fantomTestnet,
+  sepolia,
+} from "viem/chains";
 import InterchainTokenFactoryABI from "../../../contracts/InterchainTokenFactoryABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
@@ -62,8 +66,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
     console.log("chain map");
     const chainMap: { [key: string]: number } = {
+      Fantom: fantomTestnet.id,
       "base-sepolia": baseSepolia.id,
-      "optimism-sepolia": optimismSepolia.id,
       "ethereum-sepolia": sepolia.id,
     };
 

@@ -45,7 +45,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
         {
           action: "post",
-          label: "Optimism",
+          label: "Fantom",
         },
         {
           action: "post",
