@@ -67,15 +67,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [
-        INTERCHAIN_TOKEN_SERVICE_ADDRESS as `0x${string}`,
-        parseEther(amount),
-      ],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther(amount)],
     });
 
     console.log("TXN start");
 
     console.log(data);
+
+    console.log("baseSepolia", baseSepolia);
+
+    
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${baseSepolia.id}`,
       method: "eth_sendTransaction",
@@ -83,7 +84,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value: parseEther("0.0006").toString(),
+        value: "0x0",
       },
     };
     console.log("return result");
