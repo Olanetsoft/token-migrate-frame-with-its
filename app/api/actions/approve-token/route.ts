@@ -63,7 +63,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     // Convert amount to bigint using parseUnits
-    const amountInUnits = parseUnits(amount, 18);
+    const amountInUnits = BigInt(parseUnits(amount, 18));
     console.log("Amount in Units (BigInt)", amountInUnits);
 
     console.log("Encode function data");
@@ -84,8 +84,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value:
-          "0x0000000000000000000000000000000000000000000000000000000000000000",
+        value: parseEther("0.0006").toString(),
       },
     };
     console.log("Return result");
