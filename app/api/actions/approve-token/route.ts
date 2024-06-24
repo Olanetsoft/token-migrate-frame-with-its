@@ -3,15 +3,10 @@ import { encodeFunctionData, parseUnits } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
+import { ethers } from "ethers";
 
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
   "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
-
-// Function to pad hex string to 64 characters and convert back to bigint
-function padTo64CharactersAndConvertBackToBigint(value: bigint): bigint {
-  const hexString = value.toString(16).padStart(64, "0");
-  return BigInt("0x" + hexString);
-}
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   try {
@@ -62,18 +57,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     // Convert amount to smallest unit as bigint
-    const amountInUnits = parseUnits(amount, 18);
+    const amountInUnits = ethers.parseEther(amount);
     console.log("Amount in Units (BigInt):", amountInUnits);
-
-    // Pad amount to 64 characters and convert back to bigint
-    const paddedAmount = padTo64CharactersAndConvertBackToBigint(amountInUnits);
-    console.log("Padded Amount (BigInt):", paddedAmount);
 
     console.log("Encode function data");
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, paddedAmount],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInUnits],
     });
 
     console.log("Transaction data:", data);
