@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
-import { baseSepolia, sepolia } from "viem/chains";
+import { fantomTestnet } from "viem/chains";
 import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
