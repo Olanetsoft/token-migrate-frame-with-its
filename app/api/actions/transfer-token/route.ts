@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia, sepolia } from "viem/chains";
 import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
-import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =

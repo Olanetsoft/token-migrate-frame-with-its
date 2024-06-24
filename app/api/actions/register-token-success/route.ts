@@ -37,8 +37,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           label: "View transaction",
           action: "link",
-          // target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
-          target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
+          target: `https://testnet.ftmscan.com/tx/${body?.untrustedData?.transactionId}`,
         },
         {
           label: "Deploy on a Remote Chain",

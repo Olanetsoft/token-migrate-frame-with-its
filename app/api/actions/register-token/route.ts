@@ -66,7 +66,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
     console.log("chain map");
     const chainMap: { [key: string]: number } = {
-      Fantom: fantomTestnet.id,
+      "Fantom": fantomTestnet.id,
       "base-sepolia": baseSepolia.id,
       "ethereum-sepolia": sepolia.id,
     };
