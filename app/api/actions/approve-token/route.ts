@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData, parseUnits } from "viem";
+import { encodeFunctionData, parseUnits, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
@@ -84,7 +84,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value: "0x0",
+        value: parseEther("0.0006").toString(),
       },
     };
     console.log("Return result");
