@@ -64,7 +64,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInUnits],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, BigInt(amountInUnits)],
     });
 
     console.log("Transaction data:", data);
