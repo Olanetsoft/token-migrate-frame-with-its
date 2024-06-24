@@ -50,7 +50,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           label: "View transaction",
           action: "link",
-          target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
+          target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
         },
         {
           label: "Transfer",
