@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData, parseEther, parseUnits } from "viem";
+import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
@@ -57,20 +57,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     // Convert amount to smallest unit as bigint
-    const amountInUnits = ethers.parseEther(amount);
+    const amountInUnits = parseEther(amount);
     console.log("Amount in Units (BigInt):", amountInUnits);
 
     console.log("Encode function data");
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [
-        INTERCHAIN_TOKEN_SERVICE_ADDRESS,
-        parseUnits(
-          "0000000000000000000000000000000000000000000000000000004563918244f4000",
-          64
-        ),
-      ],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInUnits],
     });
 
     console.log("Transaction data:", data);
