@@ -66,10 +66,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [
-        INTERCHAIN_TOKEN_SERVICE_ADDRESS,
-        parseEther(parseUnits(amount, 18).toString()),
-      ],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther("0.1")],
     });
 
     console.log("TXN start");
