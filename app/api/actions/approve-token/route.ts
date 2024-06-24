@@ -84,7 +84,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value: parseEther("0.0006").toString(),
+        value:
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
       },
     };
     console.log("Return result");
