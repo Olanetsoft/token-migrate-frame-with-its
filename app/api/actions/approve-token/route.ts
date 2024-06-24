@@ -62,15 +62,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
-    // Convert amount to bigint using parseUnits
-    const amountInUnits = BigInt(parseUnits(amount, 18));
-    console.log("Amount in Units (BigInt)", amountInUnits);
-
     console.log("Encode function data");
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInUnits],
+      args: [
+        INTERCHAIN_TOKEN_SERVICE_ADDRESS as `0x${string}`,
+        parseUnits(amount, 18),
+      ],
     });
 
     console.log("TXN start");
