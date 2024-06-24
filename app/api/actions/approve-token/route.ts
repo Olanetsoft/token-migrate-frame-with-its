@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData, parseEther, parseUnits } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
+import { ethers } from "ethers";
 
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
   "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
-
-// Function to convert hex string (without 0x) to bigint
-function hexToBigIntWithoutPrefix(hexString: string): bigint {
-  return BigInt("0x" + hexString);
-}
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   try {
@@ -60,15 +56,21 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
-    // Convert the 64-character hex string amount (without 0x prefix) to bigint
-    const amountInBigInt = hexToBigIntWithoutPrefix(amount);
-    console.log("Amount in BigInt:", amountInBigInt);
+    // Convert amount to smallest unit as bigint
+    const amountInUnits = ethers.parseEther(amount);
+    console.log("Amount in Units (BigInt):", amountInUnits);
 
     console.log("Encode function data");
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amountInBigInt],
+      args: [
+        INTERCHAIN_TOKEN_SERVICE_ADDRESS,
+        parseUnits(
+          "0000000000000000000000000000000000000000000000000000004563918244f4000",
+          64
+        ),
+      ],
     });
 
     console.log("Transaction data:", data);
