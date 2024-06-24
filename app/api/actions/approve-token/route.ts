@@ -75,7 +75,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         abi: [],
         data,
         to: tokenAddress as `0x${string}`,
-        value: "0x0", // Ensuring value is correct
+        value: "0x", // Ensuring value is correct
       },
     };
 
