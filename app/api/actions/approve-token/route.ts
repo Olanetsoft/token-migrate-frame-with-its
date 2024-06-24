@@ -7,11 +7,6 @@ import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
   "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
 
-// Function to convert bigint to 64-character hex string
-function bigintToHex64(value: bigint): string {
-  return "0x" + value.toString(16).padStart(64, "0");
-}
-
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   try {
     console.log("Approve Token Action");
@@ -71,7 +66,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const data = encodeFunctionData({
       abi: Erc20ABI,
       functionName: "approve",
-      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther("0.1")],
+      args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, parseEther("0.00000000000000001")],
     });
 
     console.log("TXN start");
