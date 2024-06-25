@@ -38,12 +38,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: "post",
-          label: "Start Remote Deployment",
+          label: "Start",
           target:
             "https://token-migrate-frame-with-its.vercel.app/api/middleware/deploy-select-chain",
         },
       ],
-      image: `https://token-migrate-frame-with-its.vercel.app/images/result.png`,
+      image: `https://token-migrate-frame-with-its.vercel.app/images/img-06.png`,
       postUrl:
         "https://token-migrate-frame-with-its.vercel.app/api/middleware/deploy-select-chain",
       state: {

@@ -40,19 +40,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           label: "View transaction",
           action: "link",
           target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
-          // target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
         },
         {
           label: "Bridge Token",
           action: "post",
           target:
             "https://token-migrate-frame-with-its.vercel.app/api/actions/request-tokenid",
-          // postUrl:
-          //   "https://token-migrate-frame-with-its.vercel.app/api/actions/request-tokenid-success",
         },
       ],
       image:
-        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+        "https://token-migrate-frame-with-its.vercel.app/images/img-07.png",
       postUrl:
         "https://token-migrate-frame-with-its.vercel.app/api/actions/request-tokenid",
       state: {

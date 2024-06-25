@@ -71,12 +71,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: "post",
-          label: "Next >>",
+          label: "Retrieve",
           target:
             "https://token-migrate-frame-with-its.vercel.app/api/actions/start-transfer/amount",
         },
       ],
-      image: `https://token-migrate-frame-with-its.vercel.app/images/result.png`,
+      image: `https://token-migrate-frame-with-its.vercel.app/images/img-08.png`,
       postUrl:
         "https://token-migrate-frame-with-its.vercel.app/api/actions/start-transfer/amount",
       state: {

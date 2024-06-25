@@ -37,18 +37,17 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         {
           label: "View transaction",
           action: "link",
-          // target: `https://testnet.axelarscan.io/gmp/${body?.untrustedData?.transactionId}`,
           target: `https://sepolia.basescan.org/tx/${body?.untrustedData?.transactionId}`,
         },
         {
-          label: "Deploy on a Remote Chain",
+          label: "Deploy Remotely",
           action: "post",
           target:
             "https://token-migrate-frame-with-its.vercel.app/api/actions/start-deployment",
         },
       ],
       image:
-        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+        "https://token-migrate-frame-with-its.vercel.app/images/img-05.png",
       state: {
         tokenAddress: tokenAddress,
       },

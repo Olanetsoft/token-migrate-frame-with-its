@@ -71,6 +71,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log("Amount in Units (BigInt):", amountInUnits);
 
     console.log("encode function data");
+    const emptyMetadata: `0x${string}` =
+      "0x0000000000000000000000000000000000000000000000000000000000000000";
+
     const data = encodeFunctionData({
       abi: InterchainTokenServiceABI,
       functionName: "interchainTransfer",
@@ -79,7 +82,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         "optimism-sepolia",
         receiverAddress as `0x${string}`,
         BigInt(amountInUnits),
-        "0x",
+        emptyMetadata,
         parseEther("0.0006"),
       ],
     });

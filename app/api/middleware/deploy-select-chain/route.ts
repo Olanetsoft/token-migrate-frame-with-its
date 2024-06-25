@@ -53,7 +53,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
       ],
       image:
-        "https://token-migrate-frame-with-its.vercel.app/images/result.png",
+        "https://token-migrate-frame-with-its.vercel.app/images/img-03.png",
       postUrl:
         "https://token-migrate-frame-with-its.vercel.app/api/middleware/deploy-verifier",
       state: {
