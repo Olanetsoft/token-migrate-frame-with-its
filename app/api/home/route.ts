@@ -5,7 +5,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   return new NextResponse(
     getFrameHtmlResponse({
       input: {
-        text: "Enter token Address",
+        text: "Enter token address",
       },
       buttons: [
         {

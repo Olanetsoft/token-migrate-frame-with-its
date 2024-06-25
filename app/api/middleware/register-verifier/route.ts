@@ -3,10 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   try {
-    console.log("Verifier Screen");
-
     const body = await req.json();
-    console.log(body);
 
     let chainName: string | undefined;
     switch (body.untrustedData.buttonIndex) {

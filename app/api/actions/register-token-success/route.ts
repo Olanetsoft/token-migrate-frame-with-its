@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Register Success Frame");
 
   // Decode the URL-encoded serialized state
   let decodedState: string;
@@ -30,7 +29,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   const { tokenAddress } = parsedState;
-
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [

@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Start Transfer: Amount Frame");
 
   let decodedState: string;
   try {
@@ -29,7 +28,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   const { tokenAddress, tokenId } = parsedState;
-
   if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
     console.error("Invalid token address format:", tokenAddress);
     return NextResponse.json(
@@ -38,14 +36,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     );
   }
 
-  console.log("tokenAddress", tokenAddress);
-  console.log("tokenId", tokenId);
-
-  console.log("Start Transfer Frame");
   return new NextResponse(
     getFrameHtmlResponse({
       input: {
-        text: "Enter amount to be transfer",
+        text: "Enter amount to be transferred",
       },
       buttons: [
         {

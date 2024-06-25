@@ -13,7 +13,6 @@ const INTERCHAIN_TOKEN_FACTORY_ADDRESS =
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Token ID retrieval Frame");
 
   let decodedState: string;
   try {
@@ -39,7 +38,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   const { tokenAddress } = parsedState;
-
   if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
     console.error("Invalid token address format:", tokenAddress);
     return NextResponse.json(
@@ -47,8 +45,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       { status: 400 }
     );
   }
-
-  console.log(tokenAddress);
 
   const publicClient = createPublicClient({
     chain: baseSepolia,
@@ -65,7 +61,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     tokenAddress as `0x${string}`,
   ]);
 
-  console.log("Token ID", tokenId);
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [

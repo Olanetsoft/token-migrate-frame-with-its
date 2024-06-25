@@ -1,12 +1,8 @@
-import { Input } from "@ethereumjs/rlp/src";
 import { getFrameHtmlResponse } from "@coinbase/onchainkit/frame";
 import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
-  console.log("Select a chain screen");
-
   const body = await req.json();
-  console.log(body);
 
   return new NextResponse(
     getFrameHtmlResponse({

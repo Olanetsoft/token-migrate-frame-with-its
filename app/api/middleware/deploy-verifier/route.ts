@@ -3,10 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   try {
-    console.log("Deploy Verifier Screen");
-
     const body = await req.json();
-    console.log(body);
 
     let chainName: string | undefined;
     switch (body.untrustedData.buttonIndex) {
@@ -37,8 +34,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         { status: 400 }
       );
     }
-
-    console.log(decodedState);
 
     // Parse the decoded state
     let parsedState: { tokenAddress: string };

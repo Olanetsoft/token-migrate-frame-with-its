@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Deploy token Success Frame");
 
   // Decode the URL-encoded serialized state
   let decodedState: string;
@@ -16,8 +15,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       { status: 400 }
     );
   }
-
-  console.log(decodedState);
 
   // Parse the decoded state
   let parsedState: { tokenAddress: string };

@@ -3,22 +3,17 @@ import { encodeFunctionData, parseEther } from "viem";
 import { baseSepolia } from "viem/chains";
 import Erc20ABI from "../../../contracts/Erc20ABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
-import { ethers } from "ethers";
 
 const INTERCHAIN_TOKEN_SERVICE_ADDRESS =
   "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C";
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   try {
-    console.log("Approve Token Action");
-
     const body = await req.json();
-    console.log(body);
 
     let decodedState: string;
     try {
       decodedState = decodeURIComponent(body.untrustedData.state);
-      console.log("Decoded State:", decodedState);
     } catch (error) {
       console.error("Error decoding state:", error);
       return NextResponse.json(
@@ -28,9 +23,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     let parsedState: { tokenAddress: string; tokenId: string; amount: string };
+
     try {
       parsedState = JSON.parse(decodedState);
-      console.log("Parsed State:", parsedState);
     } catch (error) {
       console.error("Error parsing serialized state:", error);
       return NextResponse.json(
@@ -40,10 +35,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     const { tokenAddress, tokenId, amount } = parsedState;
-    console.log("Token Address:", tokenAddress);
-    console.log("Token Id:", tokenId);
-    console.log("Amount:", amount);
-    console.log("ITS Address:", INTERCHAIN_TOKEN_SERVICE_ADDRESS);
+
+    console.log("Token Address: ", tokenAddress);
+    console.log("Token Id: ", tokenId);
+    console.log("Amount: ", amount);
+    console.log("ITS Address: ", INTERCHAIN_TOKEN_SERVICE_ADDRESS);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
@@ -53,9 +49,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       );
     }
 
-    // Convert amount to smallest unit as bigint
     const amountInUnits = parseEther(amount);
-    console.log("Amount in Units (BigInt):", amountInUnits);
 
     console.log("Encode function data");
     const data = encodeFunctionData({
@@ -63,8 +57,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       functionName: "approve",
       args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, BigInt(amountInUnits)],
     });
-
-    console.log("Transaction data:", data);
 
     const txData: FrameTransactionResponse = {
       chainId: `eip155:${baseSepolia.id}`,
@@ -76,8 +68,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         value: "0x0", // Ensuring value is correct
       },
     };
-
-    console.log("Transaction to be sent:", txData);
 
     return NextResponse.json(txData);
   } catch (error) {

@@ -6,10 +6,7 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
-  console.log("Select a deploy chain screen");
-
   const body: FrameRequest = await req.json();
-  console.log("Start deployment Frame");
 
   let decodedState: string;
   try {

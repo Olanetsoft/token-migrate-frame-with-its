@@ -3,10 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  console.log("Approve token Success Frame");
 
   const receiverAddress = body.untrustedData.inputText;
-  console.log("Receiver Address:", receiverAddress);
 
   let decodedState: string;
   try {
@@ -40,12 +38,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       { status: 400 }
     );
   }
-
-  console.log("tokenAddress", tokenAddress);
-  console.log("tokenId", tokenId);
-  console.log("Amount", amount);
-
-  console.log("Start Approve Frame");
 
   return new NextResponse(
     getFrameHtmlResponse({
