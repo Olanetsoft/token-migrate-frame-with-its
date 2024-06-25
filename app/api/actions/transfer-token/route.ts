@@ -14,10 +14,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const body = await req.json();
     console.log(body);
 
-    const receiverAddress = body.untrustedData.inputText;
-
-    console.log(receiverAddress);
-
     let decodedState: string;
     try {
       decodedState = decodeURIComponent(body.untrustedData.state);
@@ -35,6 +31,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       tokenAddress: string;
       tokenId: string;
       amount: string;
+      receiverAddress: string;
     };
     try {
       parsedState = JSON.parse(decodedState);
@@ -48,7 +45,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     console.log("Done parsed");
-    const { tokenAddress, tokenId, amount } = parsedState;
+    const { tokenAddress, tokenId, amount, receiverAddress } = parsedState;
 
     console.log("token address: ", tokenAddress);
     console.log("Token Id", tokenId);
