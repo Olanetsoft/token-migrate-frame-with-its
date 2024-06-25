@@ -79,7 +79,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         "optimism-sepolia",
         receiverAddress as `0x${string}`,
         BigInt(amountInUnits),
-        "0x00",
+        "0x",
         parseEther("0.0006"),
       ],
     });
