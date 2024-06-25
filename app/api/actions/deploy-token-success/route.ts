@@ -46,7 +46,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
       ],
       image:
-        "https://token-migrate-frame-with-its.vercel.app/images/img-07.png",
+        "https://token-migrate-frame-with-its.vercel.app/images/img-06.png",
       postUrl:
         "https://token-migrate-frame-with-its.vercel.app/api/actions/request-tokenid",
       state: {
