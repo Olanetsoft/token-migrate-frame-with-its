@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
-import { baseSepolia, optimismSepolia } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
@@ -61,12 +61,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     }
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(receiverAddress)) {
-      console.error("Invalid token address format:", receiverAddress);
+      console.error("Invalid receiver address format:", receiverAddress);
       return NextResponse.json(
         { error: "Invalid token address format" },
         { status: 400 }
       );
     }
+    const amountInUnits = parseEther(amount);
+    console.log("Amount in Units (BigInt):", amountInUnits);
 
     console.log("encode function data");
     const data = encodeFunctionData({
@@ -76,7 +78,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         tokenId as `0x${string}`,
         "optimism-sepolia",
         receiverAddress as `0x${string}`,
-        parseEther(amount),
+        BigInt(amountInUnits),
         "0x0",
         parseEther("0.0006"),
       ],
