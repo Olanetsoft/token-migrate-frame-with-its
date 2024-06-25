@@ -53,9 +53,18 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     console.log("token address: ", tokenAddress);
     console.log("Token Id", tokenId);
     console.log("Amount", amount);
+    console.log("Receiver Address", receiverAddress);
 
     if (!/^0x[0-9a-fA-F]{40}$/.test(tokenAddress)) {
       console.error("Invalid token address format:", tokenAddress);
+      return NextResponse.json(
+        { error: "Invalid token address format" },
+        { status: 400 }
+      );
+    }
+
+    if (!/^0x[0-9a-fA-F]{40}$/.test(receiverAddress)) {
+      console.error("Invalid token address format:", receiverAddress);
       return NextResponse.json(
         { error: "Invalid token address format" },
         { status: 400 }
@@ -69,7 +78,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       args: [
         tokenId as `0x${string}`,
         "optimism-sepolia",
-        receiverAddress,
+        receiverAddress as `0x${string}`,
         parseEther(amount),
         "0x0",
         parseEther("0.0006"),

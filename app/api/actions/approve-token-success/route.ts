@@ -5,6 +5,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   console.log("Approve token Success Frame");
 
+  const receiverAddress = body.untrustedData.inputText;
+  console.log("Receiver Address:", receiverAddress);
+
   let decodedState: string;
   try {
     decodedState = decodeURIComponent(body.untrustedData.state);
@@ -67,6 +70,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         tokenAddress: tokenAddress,
         tokenId: tokenId,
         amount: amount,
+        receiverAddress: receiverAddress,
       },
     })
   );

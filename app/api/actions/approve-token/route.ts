@@ -15,9 +15,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const body = await req.json();
     console.log(body);
 
-    const receiverAddress = body.untrustedData.inputText;
-    console.log("Receiver Address:", receiverAddress);
-
     let decodedState: string;
     try {
       decodedState = decodeURIComponent(body.untrustedData.state);
