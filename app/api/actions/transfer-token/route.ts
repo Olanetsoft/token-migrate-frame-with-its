@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { encodeFunctionData, parseEther } from "viem";
-import { optimismSepolia } from "viem/chains";
+import { baseSepolia, optimismSepolia } from "viem/chains";
 import InterchainTokenServiceABI from "../../../contracts/InterchainTokenServiceABI";
 import type { FrameTransactionResponse } from "@coinbase/onchainkit/frame";
 
@@ -86,7 +86,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
 
     console.log(data);
     const txData: FrameTransactionResponse = {
-      chainId: `eip155:${optimismSepolia.id}`,
+      chainId: `eip155:${baseSepolia.id}`,
       method: "eth_sendTransaction",
       params: {
         abi: [],
