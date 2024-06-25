@@ -57,9 +57,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
         {
           label: "Transfer",
-          action: "post",
+          action: "tx",
           target:
             "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token",
+          postUrl:
+            "https://token-migrate-frame-with-its.vercel.app/api/actions/transfer-token-success",
         },
       ],
       image:
