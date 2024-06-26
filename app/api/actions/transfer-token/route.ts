@@ -68,7 +68,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         receiverAddress as `0x${string}`,
         BigInt(amountInUnits),
         emptyMetadata,
-        parseEther("0.0006"),
+        parseEther("0.0008"),
       ],
     });
 
